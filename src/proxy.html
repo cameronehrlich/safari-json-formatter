@@ -7,10 +7,13 @@
         e.target.page.dispatchMessage( "setData", {
           css: document.head.getElementsByTagName( "style" )[0].textContent,
           toolbar: document.getElementById( "toolbar" ).outerHTML,
+          panel: document.getElementById( "panel" ).outerHTML,
           settings: {
             fold_strings: safari.extension.settings.getItem( "fold_strings" ),
             long_string_length: safari.extension.settings.getItem( "long_string_length" ),
-            sort_keys: safari.extension.settings.getItem( "sort_keys" )
+            sort_keys: safari.extension.settings.getItem( "sort_keys" ),
+            show_panel: safari.extension.settings.getItem( "show_panel" ),
+            object: safari.extension.settings.getItem( "show_panel" ),
           }
         } );
       }
@@ -75,6 +78,33 @@
     }
     #toolbar li:active {
       background: -webkit-gradient( linear, 0 0, 0 100%, from(#bebebe), to(#f4f4f4) );
+    }
+
+    #panel {
+      border: 1px solid #8c8c8c;
+      border-radius: 5px;
+      float: right;
+      font-family: "lucida grande", sans-serif;
+      overflow: hidden;
+      /*font-size: 0;*/
+      padding: 0;
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right:12px;
+      margin: 6 6 6px 6px;
+      -webkit-user-select: none;
+      z-index: 9998;
+    }
+
+    #panel p {
+      background: -webkit-gradient( linear, 0 0, 0 100%, from(#c0c0c0), to(#bebebe) );
+    }
+
+    #panel #prompt {
+      width: 100%;
+      line-height: 30px;
+
     }
 
     dl,
@@ -154,5 +184,15 @@
   <ul id="toolbar">
     <li>Toggle Formatting</li>
   </ul>
+  <div id="panel">
+    <p>
+      <input type="text" id="prompt" name="prompt" autofocus />
+
+      <form action="/api/v1/juks" method="post">
+        <input type="text" name="data" value="someinput" />
+        <input type="submit" />
+      </form>
+    </p>
+  </div>
 </body>
 </html>

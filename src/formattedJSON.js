@@ -18,6 +18,7 @@
         );
       } catch( e ) {
         // invalid JSON :(
+        // alert("Invalid JSON Error: " + e); //TODO
         return;
       }
 
@@ -31,6 +32,7 @@
 
           formatJSON.addStyle( data.css );
           formatJSON.addToolbar( data.toolbar );
+          formatJSON.addPanel( data.panel );
           formatJSON.renderRoot( obj );
           formatJSON.handleEvents();
         }
@@ -131,6 +133,20 @@
       toggle.addEventListener( "click", function() {
         formatJSON._toggleClass( document.body, "before" );
       } );
+    },
+
+    /**
+     * add the panel
+     */
+    addPanel: function( panel ) {
+      var panel = this._html( panel );
+      document.body.insertBefore( panel, document.body.lastChild );
+
+      // var toggle = document.getElementById( "panel" )
+
+      // toggle.addEventListener( "click", function() {
+      //   formatJSON._toggleClass( document.body, "before" );
+      // } );
     },
 
     /**
